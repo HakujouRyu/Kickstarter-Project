@@ -29,17 +29,20 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
         
-            ## Value Proposition
+            ## You've built it
+            ### But will they come?
+            
+            Kickstarter has become an incredibly popular platform for all types of creators.  
+            Since it's beginning, Kickstarter has seen over 57M pledges across more than 464,000 projects!
+            with Kickstarter pulling in well over $4.6B spanning 171,000+ projects, it really is easy to see why so many
+            companies and entrepreneurs flock to this platform to find their success story.
 
-            Emphasize how the app will benefit users. Don't emphasize the underlying technology.
-
-            ✅ RUN is a running app that adapts to your fitness levels and designs personalized workouts to help you improve your running.
-
-            ❌ RUN is the only intelligent running app that uses sophisticated deep neural net machine learning to make your run smarter because we believe in ML driven workouts.
+            Here is a web app I've created to help you on your journey. Just fill in the information on your project and let's see what the data has to say
+            on your projects' survival.
 
             """
         ),
-        dcc.Link(dbc.Button('Call To Action', color='primary'), href='/predictions')
+        dcc.Link(dbc.Button('Find out now!', color='success'), href='/predictions')
     ],
     md=4,
 )

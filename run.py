@@ -34,9 +34,9 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')), 
     ],
     sticky='top',
-    color='light', 
-    light=True, 
-    dark=False
+    color='dark', 
+    light=False, 
+    dark=True
 )
 
 footer = dbc.Container(
@@ -46,9 +46,9 @@ footer = dbc.Container(
                 [
                     html.Span('Clay Waddell', className='mr-2'), 
                     html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:clay.waddell@gmail.com.com'), 
-                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/Hakujouryu/Kickstarter-project'), 
-                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'), 
-                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/<you>'), 
+                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/Hakujouryu/'), 
+                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/ccrw/'), 
+                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/hakujouryu'), 
                 ], 
                 className='lead'
             )
