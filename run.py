@@ -27,14 +27,14 @@ sticky (string, optional): Stick the navbar to the top or the bottom of the view
 
 navbar = dbc.NavbarSimple(
     brand='Kickstarter Predictor',
-    brand_href='/', 
+    brand_href='/',
     children=[
         dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')), 
         dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')), 
         dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')), 
     ],
     sticky='top',
-    color='dark', 
+    color='black', 
     light=False, 
     dark=True
 )
