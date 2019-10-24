@@ -29,7 +29,7 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
         
-            ## You've built it
+            ## You're building it...
             ### But will they come?
             
             Kickstarter has become an incredibly popular platform for all types of creators.  

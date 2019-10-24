@@ -18,7 +18,7 @@ print('Pipeline Loaded!')
 
 column1 = dbc.Col(
     [
-        dcc.Markdown('## Predictions', className='mb-5'), 
+        dcc.Markdown('## Conditions', className='mb-5'), 
         dcc.Markdown('#### Country'), 
         dcc.Dropdown(
             id='country',
@@ -225,19 +225,16 @@ column2 = dbc.Col(
 layout = dbc.Row([column1, column2] )
 
 @app.callback(
-    Output('prediction-content', 'children'),
-    [Input('country', 'value'),    # country
-        Input('goal', 'value'),    # goal
-        Input('created', 'date'),        # 'month_started',
-        # Input(''),        # 'year_started',
-        Input('launch', 'date'),        # 'month_launched',
-        # Input(''),        # 'day_launched',
-        # Input(''),        # 'year_launched',
-        Input('deadline', 'date'),        # 'deadline_month',
-        # Input(''),        # 'deadline_year', 
-        # Input(''),        # 'days_to_launch',
-        # Input(''),        # 'campaign_length',
-        Input('category', 'value'),        # 'category_name'
+    Output(
+        'prediction-content', 'children'
+        ),
+    [
+        Input('country', 'value'),    
+        Input('goal', 'value'),   
+        Input('created', 'date'),     
+        Input('launch', 'date'),       
+        Input('deadline', 'date'),     
+        Input('category', 'value')
     ],
 )
 # def update_output(goal, start_date, category):
