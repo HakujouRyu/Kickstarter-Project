@@ -245,6 +245,7 @@ layout = dbc.Row([column1, column2] )
 #         return string_prefix + date_string
 def predict(country, goal, start_date, launch_date, deadline_date, category_name):
     user_cols = [country, goal, start_date, launch_date, deadline_date, category_name]
+    print(country)
     if None not in user_cols:
         month_started = dt.strptime(start_date.split(' ')[0], '%Y-%m-%d').month
         year_started = dt.strptime(start_date.split(' ')[0], '%Y-%m-%d').year
