@@ -11,6 +11,7 @@ import pandas as pd
 from datetime import datetime as dt
 
 pipeline = load('assets/pipeline.joblib')
+print('Pipeline Loaded!')
 #['country', 'goal', 'month_started', 'year_started', 'month_launched',
 # 'day_launched', 'year_launched', 'deadline_month', 'deadline_year', 
 #'days_to_launch', 'campaign_length', 'category_name']
@@ -56,12 +57,13 @@ column1 = dbc.Col(
             className='mb-5',
         ),  
         dcc.DatePickerSingle(
-            id='launch',
+            id='created',
             placeholder="Created Date",
             className='mb-5',
         ) ,
         dcc.DatePickerSingle(
             id='launch',
+
             placeholder="Launch Date",
             className='mb-5',
         ),
@@ -71,7 +73,7 @@ column1 = dbc.Col(
             className='mb-5',
         ),    
         dcc.Dropdown(
-            id='Category',
+            id='category',
             placeholder='Category',
             options= [
                 {'label': '3D Printing', 'value': '3D Printing'}, 
@@ -215,27 +217,59 @@ column1 = dbc.Col(
 
 column2 = dbc.Col(
     [
-
-
-    ]
-)
-column3 = dbc.Col(
-    [
-        html.H2('Expected Lifespan', className='mb-5'), 
+        html.H2('Your campaign is likely to be:', className='mb-5'), 
         html.Div(id='prediction-content', className='lead')
     ]
 )
 
-layout = dbc.Row([column1, column2, column3] )
+layout = dbc.Row([column1, column2] )
 
 @app.callback(
     Output('prediction-content', 'children'),
-    [Input('year', 'value'), Input('continent', 'value')],
+    [Input('country', 'value'),    # country
+        Input('goal', 'value'),    # goal
+        Input('created', 'date'),        # 'month_started',
+        # Input(''),        # 'year_started',
+        Input('launch', 'date'),        # 'month_launched',
+        # Input(''),        # 'day_launched',
+        # Input(''),        # 'year_launched',
+        Input('deadline', 'date'),        # 'deadline_month',
+        # Input(''),        # 'deadline_year', 
+        # Input(''),        # 'days_to_launch',
+        # Input(''),        # 'campaign_length',
+        Input('category', 'value'),        # 'category_name'
+    ],
 )
-def predict(year, continent):
-    df = pd.DataFrame(
-        columns=['year', 'continent'], 
-        data=[[year, continent]]
-    )
-    y_pred = pipeline.predict(df)[0]
-    return f'{y_pred:.0f} years'
+# def update_output(goal, start_date, category):
+#     string_prefix = 'You have selected: '
+#     if start_date is not None:
+#         date = dt.strptime(start_date.split(' ')[0], '%Y-%m-%d')
+#         date_string = date.strftime('%B %d, %Y')
+#         return string_prefix + date_string
+def predict(country, goal, start_date, launch_date, deadline_date, category_name):
+    user_cols = [country, goal, start_date, launch_date, deadline_date, category_name]
+    if None not in user_cols:
+        month_started = dt.strptime(start_date.split(' ')[0], '%Y-%m-%d').month
+        year_started = dt.strptime(start_date.split(' ')[0], '%Y-%m-%d').year
+        month_launched = dt.strptime(launch_date.split(' ')[0], '%Y-%m-%d').month
+        day_launched = dt.strptime(launch_date.split(' ')[0], '%Y-%m-%d').day
+        year_launched = dt.strptime(launch_date.split(' ')[0], '%Y-%m-%d').year
+        deadline_month = dt.strptime(deadline_date.split(' ')[0], '%Y-%m-%d').month
+        deadline_year = dt.strptime(deadline_date.split(' ')[0], '%Y-%m-%d').year
+        days_to_launch = (dt.strptime(launch_date.split(' ')[0], '%Y-%m-%d') - dt.strptime(start_date.split(' ')[0], '%Y-%m-%d')).days
+        campaign_length = (dt.strptime(deadline_date.split(' ')[0], '%Y-%m-%d') - dt.strptime(launch_date.split(' ')[0], '%Y-%m-%d')).days
+        # print(campaign_length)
+
+        df = pd.DataFrame(
+            columns=['country', 'goal', 'month_started', 'year_started',
+            'month_launched', 'day_launched', 'year_launched', 'deadline_month', 
+            'deadline_year', 'days_to_launch', 'campaign_length', 'category_name'], 
+            data=[[country, goal, month_started, year_started, month_launched, 
+                    day_launched, year_launched, deadline_month, deadline_year,
+                    days_to_launch, campaign_length, category_name]]
+        )
+        y_pred = pipeline.predict(df)
+        return y_pred
+
+    # 'country', 'goal', 'month_started', 'year_started', 'month_launched', 
+    # 'day_launched', 'year_launched', 'deadline_month', 'deadline_year', 'days_to_launch', 'campaign_length', 'category_name'
