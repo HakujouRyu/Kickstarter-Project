@@ -212,12 +212,12 @@ column1 = dbc.Col(
             className='mb-5', 
         ), 
     ],
-    md=4,
+    md=8,
 )
 
 column2 = dbc.Col(
     [
-        html.H2('Your campaign is likely to be:', className='mb-5'), 
+        html.H2('Predictions', className='mb-5'), 
         html.Div(id='prediction-content', className='lead')
     ]
 )
@@ -265,8 +265,11 @@ def predict(country, goal, start_date, launch_date, deadline_date, category_name
                     day_launched, year_launched, deadline_month, deadline_year,
                     days_to_launch, campaign_length, category_name]]
         )
+        pred_proba = pipeline.predict_proba(df)
         y_pred = pipeline.predict(df)
-        return y_pred
-
+        if y_pred[0] in ['failed']:
+            y_pred = 'fail'
+            return f'With a ${goal} goal and {days_to_launch} days to advertise before launch, your campaign has a {pred_proba[0][0]*100 :.0f}% chance to {y_pred}.'
+        return f'With a ${goal} goal and {days_to_launch} days to advertise before launch, your campaign has a {pred_proba[0][1]*100 :.0f}% chance to be {y_pred[0]}'
     # 'country', 'goal', 'month_started', 'year_started', 'month_launched', 
     # 'day_launched', 'year_launched', 'deadline_month', 'deadline_year', 'days_to_launch', 'campaign_length', 'category_name'
