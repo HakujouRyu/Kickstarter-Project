@@ -1,6 +1,5 @@
 # Kickstarter Predictor
 
 
-Here is all of the code that I used to produce my Kickstarter predictor app, 
+Here is all of the code that I used to produce my [Kickstarter predictor app](https://kickstarter-predictor.herokuapp.com/).
 
-Eventually, HERE will be the link to it as well.
